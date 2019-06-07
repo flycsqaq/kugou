@@ -17,9 +17,9 @@ export default () => {
               <Suspense fallback={(<div>loading</div>)}>
                 <Switch>
                   {rootRouter.map((route: RouterType, index: number) => (
-                    <Route key={index} path={route.path} component={route.component} />
+                    <Route exact key={index} path={route.path} component={route.component} />
                   ))}
-                  <Redirect from="**" to=""  />
+                  <Redirect from="**" to="/"  />
                 </Switch>
               </Suspense>
             </HashRouter>
