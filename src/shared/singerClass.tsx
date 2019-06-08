@@ -13,9 +13,8 @@ function ShClassBrief(props: Props) {
   return (
     <figure className={classes.root}>
       <img
-        className={classes.bg}
         src={props.imgurl}  />
-        <figcaption className={classes.text}>{props.classname}</figcaption>
+        <figcaption className={classes.title}>{props.classname}</figcaption>
     </figure>
   )
 }

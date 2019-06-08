@@ -1,6 +1,6 @@
 import React from 'react'
 import { HomeStyle } from '@styles/Home';
-
+import { MArrowLeft, MArrowRight, MArrowDropDown, MArrowDropUp, MIconButton } from '@components/material-ui'
 
 interface Status {
   type: boolean,
@@ -28,22 +28,38 @@ export default (props: Props) => {
     if (type) {
       return (
         <React.Fragment>
-          <button className={classes.footerButton} onClick={() => props.method({type: false, page, pagesize: closesize})}>close</button>
+          <div className={classes.footerContainer}>
+            <MIconButton className={classes.footerButton} onClick={() => props.method({type: false, page, pagesize: closesize})}>
+              <MArrowDropUp />
+            </MIconButton>
+          </div>
           {
             start > 0?
-            <button className={classes.leftButtom} onClick={() => props.method({type, page: page - 1, pagesize})}>before</button>:
+            <div className={`${classes.LRContainer} ${classes.leftButtom}`}>
+              <MIconButton onClick={() => props.method({type, page: page - 1, pagesize})}>
+                <MArrowLeft />
+              </MIconButton>
+            </div>:
             null
           }
           {
             end <= length?
-            <button className={classes.rightButtom} onClick={() => props.method({type, page: page + 1, pagesize})}>next</button>:
+            <div className={`${classes.LRContainer} ${classes.rightButtom}`}>
+              <MIconButton onClick={() => props.method({type, page: page + 1, pagesize})}>
+                <MArrowRight />
+              </MIconButton>
+            </div>:
             null
           }
         </React.Fragment>
       )
     }
     return (
-      <button className={classes.footerButton} onClick={() => props.method({type: true, page, pagesize: opensize})}>open</button>
+      <div className={classes.footerContainer}>
+        <MIconButton className={classes.footerButton} onClick={() => props.method({type: true, page, pagesize: opensize})}>
+          <MArrowDropDown />
+        </MIconButton>
+      </div>
     )
   }
   return (
