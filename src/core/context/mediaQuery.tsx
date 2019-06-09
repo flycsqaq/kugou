@@ -46,10 +46,10 @@ function MediaQuery() {
   const rankgRowNum = rankMap[size]
   const singerRowNum = singerMap[size]
   return {
-    songRowNum,
-    menuRowNum,
-    rankgRowNum,
-    singerRowNum
+    songs: songRowNum,
+    menus: menuRowNum,
+    classes: rankgRowNum,
+    singers: singerRowNum
   }
 }
 

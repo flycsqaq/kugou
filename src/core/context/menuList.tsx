@@ -4,11 +4,6 @@ import { Menu } from '@models/data';
 import { MenuListRes } from '@models/response';
 import { getMenuList } from '@services/api';
 
-// interface Props {
-//   menuList: Menu[]
-//   handleGetMenuList: Promise<any>
-// }
-
 export function MenuList() {
   const [menuList, setMenuList]: [Menu[], Dispatch<any>] = useState([])
   const changeMenuList = (menuList:Menu[] = []) => setMenuList(menuList)

@@ -62,16 +62,18 @@ export interface SingerClassifyRes {
 
 export interface SingerListRes {
   data: {
-    classname: string
-    clasid: number
-    singers: {
-      total: number
-      list: {
+    data: {
+      classname: string
+      clasid: number
+      singers: {
         total: number
-        info: SingerBrief[]
+        list: {
+          total: number
+          info: SingerBrief[]
+        }
+        pagesize: number
+        page: number
       }
-      pagesize: number
-      page: number
     }
   }
 }

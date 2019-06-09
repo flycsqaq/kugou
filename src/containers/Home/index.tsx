@@ -1,181 +1,167 @@
-import React, { useEffect, useState, Dispatch, useRef } from 'react'
-import { MGraid, MTypography, MIconButton, MMoreIcon } from '@components/material-ui';
-import { HomeStyle } from '@styles/Home';
-import { NewSongsContainer } from '@context/newSongs';
+import React, { useEffect, useState } from 'react'
+import SongDisplay from '@shared/display/SongDisplay'
+import MenuDisplay from '@shared/display/MenuDisplay'
+import RankDisplay from '@shared/display/RankDisplay'
+import ClassesDisplay from '@shared/display/ClassesDisplay'
+import { NewSongsContainer } from '@context/newSongs'
+import MiddlewareViewPagination from '@shared/middleware/viewspagination';
+import { MiddlewareProps } from '@models/components';
+import HomeButtons from '@shared/pagination/HomeButtons'
+import { MGraid, MTypography, MIconButton, MMoreIcon } from '@components/material-ui'
 import { MenuListContainer } from '@context/menuList';
 import { RankListContainer } from '@context/rankList';
-import HomeButtons from '@shared/HomeButtons';
 import { SingerClassifyContainer } from '@context/singerClassify';
+import { HomeStyle } from '@styles/Home'
 import { Link } from 'react-router-dom'
-import SongDisplay from '@shared/SongDisplay'
-import MenuDisplay from '@shared/MenuDisplay'
-import RankDisplay from '@shared/RankDisplay'
-import ClassDisplay from '@shared/SingerDisplay'
-import { MediaQueryContainer } from '@context/mediaQuery';
-
-interface Status {
-  type: boolean,
-  page: number,
-  pagerow: number
-}
 
 export default () => {
   const classes = HomeStyle({})
-  const {
-    songRowNum,
-    menuRowNum,
-    rankgRowNum,
-    singerRowNum
-  }: any = MediaQueryContainer.useContainer()
-
-  // newSongs
-  let { newSongs, handleGetNewSongs } = NewSongsContainer.useContainer()
-  const [newSongsCloseRow, newSongsOpenRow] = [2, 4]
-  const [newSongsStatus, changeNewSongsStatus]: [Status, Dispatch<any>] = useState({type: false, page: 1, pagerow: newSongsCloseRow})
-
-  useEffect(
-    () => {
-      handleGetNewSongs()
-    }, []
-  )
-  function NewSongsDisplay() {
-    const { type, page, pagerow } = newSongsStatus
-    const start: number = pagerow * songRowNum * (page -1)
-    const end: number = pagerow * songRowNum * page
-    const length: number = newSongs.length
-    const method: (status: Status) => void = (status: Status) => changeNewSongsStatus(status)
-    const data = {
-      type,
-      page,
-      pagerow,
-      openrow: newSongsOpenRow,
-      closerow: newSongsCloseRow,
-      maxRow: Math.ceil(length / songRowNum)
+  function NewSongs() {
+    const { newSongs, handleGetNewSongs } = NewSongsContainer.useContainer()
+    useEffect(
+      () => {
+        handleGetNewSongs()
+      }, []
+    )
+    const [row, setRow] = useState(2)
+    const [isOpen, setIsOpen] = useState(false)
+    const props: MiddlewareProps = {
+      View: SongDisplay,
+      row,
+      data: newSongs,
+      type: 'songs',
+      actions: {
+        open: () => {
+          setRow(row + 2)
+          setIsOpen(true)
+        },
+        close: () => {
+          setRow(row - 2)
+          setIsOpen(false)
+        }
+      },
+      Pagination: HomeButtons,
+      isOpen
     }
+    const News = MiddlewareViewPagination(props)
     return (
-      <MGraid container spacing={3} className={classes.flexPadding}>
-        <SongDisplay start={start} data={newSongs.slice(start, end)} />
-        <HomeButtons data={data} method={method} />
-      </MGraid>
+      <News />
     )
   }
 
-  // // menuList
-  // let { menuList, handleGetMenuList } = MenuListContainer.useContainer()
-  // const [menuCloseRow, menuOpenRow] = [1, 2]
-  // const [menuStatus, changeMenuStatus]: [Status, Dispatch<any>] = useState({type: false, page: 1, pagerow: menuCloseRow})
-
-  // useEffect(
-  //   () => {
-  //     handleGetMenuList()
-  //   }, []
-  // )
-
-  // function MenuListDisplay() {
-  //   const { type, page, pagerow } = menuStatus
-  //   const start: number = pagerow * menuRowNum * (page -1)
-  //   const end: number = pagerow * menuRowNum * page
-  //   const length = menuList.length
-  //   const method: (status: Status) => void = (status: Status) => changeMenuStatus(status)
-  //   const data = {
-  //     type,
-  //     page,
-  //     pagerow,
-  //     openrow: menuOpenRow,
-  //     closerow: menuCloseRow,
-  //     maxRow: Math.ceil(length / menuRowNum)
-  //   }
-  //   return (
-  //     <MGraid container className={classes.flexPadding}>
-  //       <MGraid item>
-  //         <MenuDisplay data={menuList.slice(start, end)} />
-  //       </MGraid>
-  //       <HomeButtons data={data} method={method} />
-  //     </MGraid>
-  //   )
-  // }
-
-
-  // // rankList
-  // const { rankList, handleGetRankList  } = RankListContainer.useContainer()
-  // const [rankCloseRow, rankOpenRow] = [1, 2]  
-  // const [rankStatus, changeRankStatus]: [Status, Dispatch<any>] = useState({type: false, page: 1, pagerow: rankCloseRow})
-  // useEffect(
-  //   () => {
-  //     handleGetRankList()
-  //   }, []
-  // )
-  // // function Rank
-  // function RankListDisplay() {
-  //   const { type, page, pagerow } = rankStatus
-  //   const start: number = pagerow * rankgRowNum * (page -1)
-  //   const end: number = pagerow * rankgRowNum * page
-  //   const length: number = rankList.length
-  //   const method: (status: Status) => void = (status: Status) => changeRankStatus(status)
-  //   const data = {
-  //     type,
-  //     page,
-  //     pagerow,
-  //     openrow: rankOpenRow,
-  //     closerow: rankCloseRow,
-  //     maxRow: Math.ceil(length / rankgRowNum)
-  //   }
-  //   return (
-  //     <MGraid container spacing={3} className={classes.flexPadding}>
-  //       <MGraid item>
-  //         <RankDisplay data={rankList.slice(start, end)} />
-  //       </MGraid>
-  //       <HomeButtons data={data} method={method} />
-  //     </MGraid>
-  //   )
-  // }
-
-  // const {singerClassify,handleGetSingerClassify} = SingerClassifyContainer.useContainer()
-  // const [classCloseRow, classOpenRow] = [1, 2]  
-  // const [singerClassifyStatus, changeSingerClassifyStatus]: [Status, Dispatch<any>] = useState({type: false, page: 1, pagerow: classCloseRow})
-  // useEffect(
-  //   () => {
-  //     handleGetSingerClassify()
-  //   }, []
-  // )
-  // function SingerClassifyDisplay() {
-  //   const { type, page, pagerow } = singerClassifyStatus
-  //   const start: number = pagerow * singerRowNum * (page -1)
-  //   const end: number = pagerow * singerRowNum * page
-  //   const length: number = singerClassify.length
-  //   const method: (status: Status) => void = (status: Status) => changeSingerClassifyStatus(status)
-  //   const data = {
-  //     type,
-  //     page,
-  //     pagerow,
-  //     openrow: classOpenRow,
-  //     closerow: classCloseRow,
-  //     maxRow: Math.ceil(length / singerRowNum)
-  //   }
-  //   return (
-  //     <MGraid container spacing={1} className={classes.flexPadding}>
-  //     <MGraid item>
-  //       <ClassDisplay data={singerClassify.slice(start, end)} />
-  //     </MGraid>
-  //       <HomeButtons data={data} method={method} />
-  //     </MGraid>
-  //   )
-  // }
+  function MenuList() {
+    const { menuList, handleGetMenuList } = MenuListContainer.useContainer()
+    useEffect(
+      () => {
+        handleGetMenuList()
+      }, []
+    )
+    const [row, setRow] = useState(1)
+    const [isOpen, setIsOpen] = useState(false)
+    const props: MiddlewareProps = {
+      View: MenuDisplay,
+      row,
+      data: menuList,
+      type: 'menus',
+      actions: {
+        open: () => {
+          setRow(row + 1)
+          setIsOpen(true)
+        },
+        close: () => {
+          setRow(row - 1)
+          setIsOpen(false)
+        }
+      },
+      Pagination: HomeButtons,
+      isOpen
+    }
+    const Menus = MiddlewareViewPagination(props)
+    return (
+      <Menus />
+    )
+  }
+  function RankList() {
+    const { rankList, handleGetRankList } = RankListContainer.useContainer()
+    useEffect(
+      () => {
+        handleGetRankList()
+      }, []
+    )
+    const [row, setRow] = useState(1)
+    const [isOpen, setIsOpen] = useState(false)
+    const props: MiddlewareProps = {
+      View: RankDisplay,
+      row,
+      data: rankList,
+      type: 'classes',
+      actions: {
+        open: () => {
+          setRow(row + 1)
+          setIsOpen(true)
+        },
+        close: () => {
+          setRow(row - 1)
+          setIsOpen(false)
+        }
+      },
+      Pagination: HomeButtons,
+      isOpen
+    }
+    const Ranks = MiddlewareViewPagination(props)
+    return (
+      <Ranks />
+    )
+  }
+  function SingerList() {
+    const { singerClassify, handleGetSingerClassify } = SingerClassifyContainer.useContainer()
+    useEffect(
+      () => {
+        handleGetSingerClassify()
+      }, []
+    )
+    const [row, setRow] = useState(1)
+    const [isOpen, setIsOpen] = useState(false)
+    const props: MiddlewareProps = {
+      View: ClassesDisplay,
+      row,
+      data: singerClassify,
+      type: 'singers',
+      actions: {
+        open: () => {
+          setRow(row + 1)
+          setIsOpen(true)
+        },
+        close: () => {
+          setRow(row - 1)
+          setIsOpen(false)
+        }
+      },
+      Pagination: HomeButtons,
+      isOpen
+    }
+    const Singers = MiddlewareViewPagination(props)
+    return (
+      <Singers />
+    )
+  }
   return (
-    <MGraid container spacing={1}>
-      <MGraid item className={classes.flexContainer}>
-        <MTypography className={classes.title} variant="h5" component="h1">
-          新歌推荐
+    <MGraid container spacing={3}>
+      <MGraid item xs={12}>
+        <MTypography component="h1" className={classes.h1}>
+          最新歌曲
           <Link to="/newsongs">
             <MIconButton className={classes.moreButton}>
               <MMoreIcon />
             </MIconButton>
           </Link>
         </MTypography>
-        <NewSongsDisplay />
+        <MGraid container>
+          <NewSongs />
+        </MGraid>
       </MGraid>
-      {/* <MGraid item className={classes.flexContainer}>
-        <MTypography className={classes.title} variant="h5" component="h1">
+      <MGraid item xs={12}>
+        <MTypography component="h1" className={classes.h1}>
           歌单推荐
           <Link to="/menulist">
             <MIconButton className={classes.moreButton}>
@@ -183,21 +169,25 @@ export default () => {
             </MIconButton>
           </Link>
         </MTypography>
-        <MenuListDisplay />
+        <MGraid item>
+          <MenuList />
+        </MGraid>
       </MGraid>
-      <MGraid item className={classes.flexContainer}>
-        <MTypography className={classes.title} variant="h5" component="h1">
-          歌曲榜单
+      <MGraid item xs={12}>
+        <MTypography component="h1" className={classes.h1}>
+          歌曲排行榜
           <Link to="/rank/songs">
             <MIconButton className={classes.moreButton}>
               <MMoreIcon />
             </MIconButton>
           </Link>
         </MTypography>
-        <RankListDisplay />
+        <MGraid item>
+          <RankList />
+        </MGraid>
       </MGraid>
-      <MGraid item className={classes.flexContainer}>
-        <MTypography className={classes.title} variant="h5" component="h1">
+      <MGraid item xs={12}>
+        <MTypography component="h1" className={classes.h1}>
           歌手分类
           <Link to="/class/singer">
             <MIconButton className={classes.moreButton}>
@@ -205,8 +195,10 @@ export default () => {
             </MIconButton>
           </Link>
         </MTypography>
-        <SingerClassifyDisplay />
-      </MGraid> */}
+        <MGraid item>
+          <SingerList />
+        </MGraid>
+      </MGraid>
     </MGraid>
   )
 }

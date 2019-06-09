@@ -43,7 +43,7 @@ export function getSingerClasses(): AxiosPromise {
   })
 }
 
-export function singerClassSingerList(classid: number): AxiosPromise {
+export function getSingerClassSingerList(classid: number): AxiosPromise {
   return instance({
     url: `singer_list/${classid}`,
     method: 'get'

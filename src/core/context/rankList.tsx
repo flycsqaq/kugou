@@ -1,6 +1,6 @@
 import { useState, Dispatch } from 'react'
 import { createContainer } from "unstated-next"
-import { Menu, SongRank } from '@models/data';
+import { SongRank } from '@models/data';
 import { getRankList } from '@services/api';
 import { SongRankListRes } from '@models/response';
 

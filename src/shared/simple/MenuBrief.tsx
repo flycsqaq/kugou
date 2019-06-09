@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React from 'react'
 import { changeImgUrl } from '@utils/imgUrl'
 import { MenuStyle } from '@styles/shared/menu'
 import { Link } from 'react-router-dom';
