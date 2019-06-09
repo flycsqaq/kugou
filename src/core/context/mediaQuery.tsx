@@ -21,7 +21,36 @@ function MediaQuery() {
       setSize(judgeMap.get(match1200).get(match800))
     }, [match800, match1200]
   )
-  return size
+  const songMap: any = {
+    l: 4,
+    m: 3,
+    s: 2
+  }
+  const menuMap: any = {
+    l: 3,
+    m: 2,
+    s: 1
+  }
+  const rankMap: any = {
+    l: 3,
+    m: 2,
+    s: 1
+  }
+  const singerMap: any = {
+    l: 6,
+    m: 4,
+    s: 2
+  }
+  const songRowNum = songMap[size]
+  const menuRowNum = menuMap[size]
+  const rankgRowNum = rankMap[size]
+  const singerRowNum = singerMap[size]
+  return {
+    songRowNum,
+    menuRowNum,
+    rankgRowNum,
+    singerRowNum
+  }
 }
 
 export const MediaQueryContainer = createContainer(MediaQuery)

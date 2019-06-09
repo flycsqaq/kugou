@@ -9,24 +9,14 @@ interface Props {
 }
 
 export default (props: Props) => {
-  const size: any = MediaQueryContainer.useContainer()
-  const judgeMap: any = {
-    l: 3,
-    m: 2,
-    s: 1
-  }
-  const [[start, end], setRow] = useState([0,1])
-  const [num, setNum]: [any, any] = useState(12 / judgeMap[size])
-  useEffect(
-    () => {
-      setNum(12 / judgeMap[size])
-    }, [size]
-  )
+  const { menuRowNum } = MediaQueryContainer.useContainer()
+  const num: any = 12 / menuRowNum
+
   return (
     <MGraid container spacing={3}>
     {
-      props.data.slice(start * judgeMap[size], end * judgeMap[size]).map((menu: Menu) => (
-      <MGraid item xs={num}>
+      props.data.map((menu: Menu, index: number) => (
+      <MGraid key={index} item xs={num}>
         <ShMenuBrief imgurl={menu.imgurl} specialid={menu.specialid} specialname={menu.specialname} />
       </MGraid>
       ))

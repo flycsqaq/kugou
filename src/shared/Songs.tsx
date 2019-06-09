@@ -22,7 +22,7 @@ const Songs = (props: Props) => {
         </MTypography>
       </MGraid>
       <MGraid item>
-        <SongDisplay data={props.data.slice(0, row * counter)} />
+        <SongDisplay start={0} data={props.data.slice(0, row * counter)} />
       </MGraid>
       {
         props.data.length >= row * counter?

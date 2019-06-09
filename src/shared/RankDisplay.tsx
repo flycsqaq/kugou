@@ -9,25 +9,14 @@ interface Props {
 }
 
 export default (props: Props) => {
-  const size: any = MediaQueryContainer.useContainer()
-  const judgeMap: any = {
-    l: 3,
-    m: 2,
-    s: 1
-  }
-  const [[start, end], setRow] = useState([0,1])
-  const [num, setNum]: [any, any] = useState(12 / judgeMap[size])
-  useEffect(
-    () => {
-      setNum(12 / judgeMap[size])
-    }, [size]
-  )
+  const { rankgRowNum }: any = MediaQueryContainer.useContainer()
+  const num: any = 12 / rankgRowNum
 
   return (
     <MGraid container spacing={3}>
     {
-      props.data.slice(start * judgeMap[size], end * judgeMap[size]).map((rank: SongRank) => (
-      <MGraid item xs={num}>
+      props.data.map((rank: SongRank, index: number) => (
+      <MGraid key={index} item xs={num}>
         <RankBrief imgurl={rank.imgurl} rankid={rank.rankid} rankname={rank.rankname} intro={rank.intro} />
       </MGraid>
       ))

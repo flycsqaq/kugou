@@ -5,13 +5,10 @@ import { MArrowLeft, MArrowRight, MArrowDropDown, MArrowDropUp, MIconButton } fr
 interface Status {
   type: boolean,
   page: number,
-  pagesize: number
 }
 
 interface Data extends Status {
-  length: number
-  opensize: number
-  closesize: number
+  maxPage: number
 }
 
 interface Props {
@@ -22,30 +19,28 @@ interface Props {
 export default (props: Props) => {
   const classes = HomeStyle({})
   function Buttons() {
-    const { type, page, pagesize, length, opensize, closesize } = props.data
-    const start = pagesize * (page -1)
-    const end = pagesize * page
+    const { type, page, maxPage } = props.data
     if (type) {
       return (
         <React.Fragment>
           <div className={classes.footerContainer}>
-            <MIconButton className={classes.footerButton} onClick={() => props.method({type: false, page, pagesize: closesize})}>
+            <MIconButton className={classes.footerButton} onClick={() => props.method({type: false, page})}>
               <MArrowDropUp />
             </MIconButton>
           </div>
           {
-            start > 0?
+            page > 1?
             <div className={`${classes.LRContainer} ${classes.leftButtom}`}>
-              <MIconButton onClick={() => props.method({type, page: page - 1, pagesize})}>
+              <MIconButton onClick={() => props.method({type, page: page - 1})}>
                 <MArrowLeft />
               </MIconButton>
             </div>:
             null
           }
           {
-            end <= length?
+            page < maxPage?
             <div className={`${classes.LRContainer} ${classes.rightButtom}`}>
-              <MIconButton onClick={() => props.method({type, page: page + 1, pagesize})}>
+              <MIconButton onClick={() => props.method({type, page: page + 1})}>
                 <MArrowRight />
               </MIconButton>
             </div>:
@@ -56,7 +51,7 @@ export default (props: Props) => {
     }
     return (
       <div className={classes.footerContainer}>
-        <MIconButton className={classes.footerButton} onClick={() => props.method({type: true, page, pagesize: opensize})}>
+        <MIconButton className={classes.footerButton} onClick={() => props.method({type: true, page})}>
           <MArrowDropDown />
         </MIconButton>
       </div>
