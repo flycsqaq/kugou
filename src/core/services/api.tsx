@@ -29,7 +29,7 @@ export function getRankList(): AxiosPromise {
   })
 }
 
-export function rankSongs(rankid: number): AxiosPromise {
+export function getRankSongs(rankid: number): AxiosPromise {
   return instance({
     url: `rank_list_info/${rankid}`,
     method: 'get'

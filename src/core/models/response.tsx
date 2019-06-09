@@ -42,12 +42,14 @@ export interface SongRankListRes {
 
 export interface SongRankSongsRes {
   data: {
-    info: SongRank
-    songs: {
-      total: number
-      page: number
-      pagesize: number
-      list: SongBrief
+    data: {
+      info: SongRank
+      songs: {
+        total: number
+        page: number
+        pagesize: number
+        list: SongBrief
+      }
     }
   }
 }

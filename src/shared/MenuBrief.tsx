@@ -16,10 +16,8 @@ function ShMenuBrief(props: Props) {
       <figure className={classes.root}>
         <img
           src={changeImgUrl(props.imgurl)} 
-          srcSet={`${changeImgUrl(props.imgurl, 240)} 240w,
-                  ${changeImgUrl(props.imgurl, 480)} 480w`}
-          sizes={`(max-width: 800px) 150px,
-                  (max-width: 2000px) 300px,`} />
+          srcSet={`${changeImgUrl(props.imgurl, 480)} 480w,`}
+          sizes={`(max-width: 2000px) 300px,`} />
         <figcaption className={classes.title}>{props.specialname}</figcaption>
       </figure>
     </Link>

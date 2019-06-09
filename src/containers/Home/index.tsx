@@ -1,11 +1,10 @@
 import React, { useEffect, useState, Dispatch } from 'react'
 import { MGraid, MTypography, MIconButton, MMoreIcon } from '@components/material-ui';
 import { HomeStyle } from '@styles/Home';
-import { SongBrief, Menu, SongRank, SingerClass } from '@models/data';
+import { Menu, SongRank, SingerClass } from '@models/data';
 import { NewSongsContainer } from '@context/newSongs';
 import { MenuListContainer } from '@context/menuList';
 import { RankListContainer } from '@context/rankList';
-import ShSong from '@shared/SongBrief'
 import HomeButtons from '@shared/HomeButtons';
 import ShMenuBrief from '@shared/MenuBrief';
 import ShRankBrief from '@shared/RankBrief';
@@ -13,6 +12,10 @@ import ShClassBrief from '@shared/singerClass';
 import { SingerClassifyContainer } from '@context/singerClassify';
 import { Link } from 'react-router-dom'
 import { MediaQueryContainer } from '@context/mediaQuery';
+import SongDisplay from '@shared/SongDisplay'
+import MenuDisplay from '@shared/MenuDisplay'
+import RankDisplay from '@shared/RankDisplay'
+import ClassDisplay from '@shared/SingerDisplay'
 
 interface Status {
   type: boolean,
@@ -62,11 +65,7 @@ export default () => {
     const itemNum: any = 12 / newRow
     return (
       <MGraid container spacing={3} className={classes.flexPadding}>
-        {newSongs.slice(start, end).map((song: SongBrief, index: number) => (
-          <MGraid item key={index} xs={itemNum} className={classes.itemContainer}>
-            <ShSong index={start + index + 1} hash={song.hash} filename={song.filename} />
-          </MGraid>
-        ))}
+        <SongDisplay data={newSongs.slice(start, end)} />
         <HomeButtons data={data} method={method} />
       </MGraid>
     )
@@ -83,7 +82,7 @@ export default () => {
     }, []
   )
 
-  function MenuDisplay() {
+  function MenuListDisplay() {
     const { type, page, pagesize } = menuStatus
     const start = pagesize * (page -1)
     const end = pagesize * page
@@ -97,14 +96,11 @@ export default () => {
       opensize: menuRow * 2,
       closesize: menuRow
     }
-    const menuNum: any = 12 / menuRow
     return (
       <MGraid container className={classes.flexPadding}>
-        {menuList.slice(start, end).map((menu: Menu, index: number) => (
-          <MGraid item key={index} xs={menuNum} className={classes.itemContainer}>
-            <ShMenuBrief specialid={menu.specialid} specialname={menu.specialname} imgurl={menu.imgurl} />
-          </MGraid>
-        ))}
+        <MGraid item>
+          <MenuDisplay data={menuList.slice(start, end)} />
+        </MGraid>
         <HomeButtons data={data} method={method} />
       </MGraid>
     )
@@ -121,7 +117,7 @@ export default () => {
     }, []
   )
   // function Rank
-  function RankDisplay() {
+  function RankListDisplay() {
     const { type, page, pagesize } = rankStatus
     const start = pagesize * (page -1)
     const end = pagesize * page
@@ -138,11 +134,9 @@ export default () => {
     const rankNum: any = 12 / rankRow
     return (
       <MGraid container spacing={3} className={classes.flexPadding}>
-        {rankList.slice(start, end).map((rank: SongRank, index: number) => (
-          <MGraid item key={index} xs={rankNum} className={classes.itemContainer}>
-            <ShRankBrief rankid={rank.rankid} rankname={rank.rankname} imgurl={rank.imgurl} intro={rank.intro} />
-          </MGraid>
-        ))}
+        <MGraid item>
+          <RankDisplay data={rankList.slice(start, end)} />
+        </MGraid>
         <HomeButtons data={data} method={method} />
       </MGraid>
     )
@@ -173,11 +167,14 @@ export default () => {
     const classNum: any = 12 / classRow
     return (
       <MGraid container spacing={1} className={classes.flexPadding}>
-        {singerClassify.slice(start, end).map((singerClass: SingerClass, index: number) => (
+      <MGraid item>
+        <ClassDisplay data={singerClassify.slice(start, end)} />
+      </MGraid>
+        {/* {singerClassify.slice(start, end).map((singerClass: SingerClass, index: number) => (
           <MGraid item key={index} xs={classNum} className={classes.itemContainer}>
             <ShClassBrief classid={singerClass.classid} classname={singerClass.classname} imgurl={singerClass.imgurl} />
           </MGraid>
-        ))}
+        ))} */}
         <HomeButtons data={data} method={method} />
       </MGraid>
     )
@@ -204,7 +201,7 @@ export default () => {
             </MIconButton>
           </Link>
         </MTypography>
-        <MenuDisplay />
+        <MenuListDisplay />
       </MGraid>
       <MGraid item className={classes.flexContainer}>
         <MTypography className={classes.title} variant="h5" component="h1">
@@ -215,7 +212,7 @@ export default () => {
             </MIconButton>
           </Link>
         </MTypography>
-        <RankDisplay />
+        <RankListDisplay />
       </MGraid>
       <MGraid item className={classes.flexContainer}>
         <MTypography className={classes.title} variant="h5" component="h1">

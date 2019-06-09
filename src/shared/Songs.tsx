@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { MGraid, MTypography, MIconButton, MArrowDropDown } from '@components/material-ui';
 import { SongBrief } from '@models/data';
-import ShSong from '@shared/SongBrief'
 import { SongStyle } from '@styles/shared/song'
+import SongDisplay from '@shared/SongDisplay'
 
 interface Props {
   data: SongBrief[]
@@ -12,7 +12,6 @@ interface Props {
 const Songs = (props: Props) => {
   const classes = SongStyle({})
   const counter = 4
-  const num: any = 12 / counter
   const baseRow = 4
   const [row, setRow] = useState(baseRow)
   return (
@@ -23,13 +22,7 @@ const Songs = (props: Props) => {
         </MTypography>
       </MGraid>
       <MGraid item>
-        <MGraid className={classes.songContainer} container spacing={3}>
-          {props.data.slice(0, row * counter).map((song: SongBrief, index: number) => (
-            <MGraid item key={index} xs={num}>
-              <ShSong index={index + 1} hash={song.hash} filename={song.filename} />
-            </MGraid>
-          ))}
-        </MGraid>
+        <SongDisplay data={props.data.slice(0, row * counter)} />
       </MGraid>
       {
         props.data.length >= row * counter?
