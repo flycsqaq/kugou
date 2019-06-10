@@ -1,5 +1,8 @@
 // const tsconfigPathsPlugs = require('tsconfig-paths-webpack-plugin')
-
+    // "start": "react-app-rewired start",
+    // "build": "react-app-rewired build",
+    // "test": "react-app-rewired test --env=jsdom",
+    // "eject": "react-scripts eject"
 const path = require('path')
 // const base = "./src"
 module.exports = function override(config, env) {
@@ -10,7 +13,7 @@ module.exports = function override(config, env) {
   // ]
   config.resolve.alias = {
     ...config.resolve.alias,
-    "@containers": path.resolve(__dirname, './scr/containers'),
+    "@containers": path.resolve(__dirname, "./scr/containers"),
     "@components": path.resolve(__dirname, "./src/components"),
     "@assets": path.resolve(__dirname, "./src/assets"),
     "@shared": path.resolve(__dirname, "./src/shared"),
