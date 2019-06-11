@@ -53,6 +53,11 @@ export default (props: Props) => {
       }
     }, []
   )
+  useEffect(
+    () => {
+      window.scrollTo(0,0)
+    }, []
+  )
   // pagination
   const [row, setRow] = useState(4)
   const [isOpen, setOpen] = useState(false)
@@ -86,9 +91,11 @@ export default (props: Props) => {
         <MTypography component="h1" className={classes.h1}>
           {title}
         </MTypography>
+      </MGraid>
+      <MGraid item>
         <MGraid container>
-          <Songs />
-        </MGraid>
+            <Songs />
+          </MGraid>
       </MGraid>
     </MGraid>
   )

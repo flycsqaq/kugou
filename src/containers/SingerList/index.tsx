@@ -27,7 +27,11 @@ export default (props: Props) => {
         })
     }, [props.match.params.id]
   )
-
+  useEffect(
+    () => {
+      window.scrollTo(0,0)
+    }, []
+  )
   const { menus } = MediaQueryContainer.useContainer()
   const [row, setRow] = useState(3)
   const [isOpen, setOpen] = useState(false)
@@ -57,14 +61,16 @@ export default (props: Props) => {
 
   return (
     <MGraid container spacing={3}>
-    <MGraid item xs={12}>
-      <MTypography component="h1" className={classes.h1}>
-        {title}
-      </MTypography>
-      <MGraid container>
-        <Singers />
+      <MGraid item xs={12}>
+        <MTypography component="h1" className={classes.h1}>
+          {title}
+        </MTypography>
+      </MGraid>
+      <MGraid item>
+        <MGraid container>
+          <Singers />
+        </MGraid>
       </MGraid>
     </MGraid>
-  </MGraid>
   )
 }

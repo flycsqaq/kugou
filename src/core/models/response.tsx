@@ -80,17 +80,21 @@ export interface SingerListRes {
 
 export interface SingerInfoRes {
   data: {
-    info: SingerDetail
-    songs: {
-      total: number
-      pagesize: number
-      list: SongBrief
+    data: {
+      info: SingerDetail
+      songs: {
+        total: number
+        pagesize: number
+        list: SongBrief
+      }
     }
   }
 }
 
 export interface SongInfoRes {
-  data: SongDetail
+  data: {
+    data: SongDetail
+  }
 }
 
 export interface SongLrcRes {

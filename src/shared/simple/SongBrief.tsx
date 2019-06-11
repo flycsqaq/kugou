@@ -1,6 +1,7 @@
 import React from 'react'
-import { MPaper, MTypography, MIconButton, MPlayArrow } from '@components/material-ui'
+import { MPaper, MTypography, MIconButton, MPlayArrow, MPause } from '@components/material-ui'
 import { SongStyle } from '@styles//shared/song'
+import { PlayContainer } from '@context/play';
 interface Props {
   hash: string
   filename: string
@@ -9,7 +10,13 @@ interface Props {
 }
 
 export default (props: Props) => {
+  const { setPlayState, setPlay, play, playState, handleAddSong } = PlayContainer.useContainer()
   const classes = SongStyle({})
+  function handlePlay() {
+    handleAddSong(props as any)
+    setPlay(props)
+    setPlayState(true)
+  }
   if (props.cover) {
     return (
       <div>none</div>
@@ -20,9 +27,15 @@ export default (props: Props) => {
         <MTypography>
           {props.index || ''} - {props.filename}
         </MTypography>
-        <MIconButton>
-          <MPlayArrow />
-        </MIconButton>
+        {
+          playState && props.hash === play.hash ?
+          <MIconButton onClick={() => setPlayState(false)}>
+            <MPause />
+          </MIconButton>:
+          <MIconButton onClick={handlePlay}>
+            <MPlayArrow />
+          </MIconButton>
+        }
       </MPaper>
     )
   }

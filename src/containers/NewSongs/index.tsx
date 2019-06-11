@@ -18,7 +18,11 @@ export default () => {
       handleGetNewSongs()
     }, []
   )
-
+  useEffect(
+    () => {
+      window.scrollTo(0,0)
+    }, []
+  )
   const [row, setRow] = useState(4)
   const [isOpen, setOpen] = useState(false)
   useEffect(
@@ -50,6 +54,8 @@ export default () => {
         <MTypography component="h1" className={classes.h1}>
           最新歌曲
         </MTypography>
+      </MGraid>
+      <MGraid item>
         <MGraid container>
           <News />
         </MGraid>

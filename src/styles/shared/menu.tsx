@@ -8,7 +8,8 @@ export const MenuStyle = makeStyles((theme: Theme) =>
     title: {
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      textAlign: 'center'
     }
   })
 )

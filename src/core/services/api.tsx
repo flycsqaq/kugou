@@ -50,14 +50,14 @@ export function getSingerClassSingerList(classid: number): AxiosPromise {
   })
 }
 
-export function singerInfo(singerid: number): AxiosPromise {
+export function getSingerInfo(singerid: number): AxiosPromise {
   return instance({
     url: `singer_info/${singerid}`,
     method: 'get'
   })
 }
 
-export function songInfo(hash: string): AxiosPromise {
+export function getSongInfo(hash: string): AxiosPromise {
   return instance({
     url: `song_info/${hash}`,
     method: 'get'

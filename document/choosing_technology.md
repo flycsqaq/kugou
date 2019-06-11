@@ -5,9 +5,10 @@ facebook背景，生态良好，hooks用起来舒服，api少，只需要掌握j
 ## ui组件库：Materail-ui
 ### why：
 文档完善，个人喜欢materail-design风格
-## 数据管理：Redux
 
-## sass
+## 数据管理：unState
+
+## css in js
 
 ## react-router-dom
 

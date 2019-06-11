@@ -10,6 +10,7 @@ export interface SongBrief {
 
 export interface SongDetail {
   hash: string
+  songName: string
   singerName: string
   url: string
   imgUrl: string // 240, 480

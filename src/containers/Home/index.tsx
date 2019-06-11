@@ -23,6 +23,11 @@ export default () => {
         handleGetNewSongs()
       }, []
     )
+    useEffect(
+      () => {
+        window.scrollTo(0,0)
+      }, []
+    )
     const [row, setRow] = useState(2)
     const [isOpen, setIsOpen] = useState(false)
     const props: MiddlewareProps = {

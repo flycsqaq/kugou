@@ -29,6 +29,11 @@ export default () => {
       }
     }, [classes, row, rankList]
   )
+  useEffect(
+    () => {
+      window.scrollTo(0,0)
+    }, []
+  )
   const props: MiddlewareProps = {
     View: RankDisplay,
     row,
@@ -45,14 +50,16 @@ export default () => {
   const Ranks = MiddlewareViewPagination(props)
   return (
     <MGraid container spacing={3}>
-    <MGraid item xs={12}>
-      <MTypography component="h1" className={classess.h1}>
-        歌曲排行榜
-      </MTypography>
-      <MGraid container>
-        <Ranks />
+      <MGraid item xs={12}>
+        <MTypography component="h1" className={classess.h1}>
+          歌曲排行榜
+        </MTypography>
+      </MGraid>
+      <MGraid item>
+        <MGraid container>
+          <Ranks />
+        </MGraid>
       </MGraid>
     </MGraid>
-  </MGraid>
   )
 }

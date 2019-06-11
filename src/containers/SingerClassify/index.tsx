@@ -19,6 +19,11 @@ export default () => {
       handleGetSingerClassify()
     }, []
   )
+  useEffect(
+    () => {
+      window.scrollTo(0,0)
+    }, []
+  )
   const [row, setRow] = useState(2)
   const [isOpen, setOpen] = useState(false)
   useEffect(
@@ -50,6 +55,8 @@ export default () => {
       <MTypography component="h1" className={classes.h1}>
         推荐歌单
       </MTypography>
+    </MGraid>
+    <MGraid item>
       <MGraid container>
         <Singers />
       </MGraid>

@@ -17,6 +17,11 @@ export default () => {
       handleGetMenuList()
     }, []
   )
+  useEffect(
+    () => {
+      window.scrollTo(0,0)
+    }, []
+  )
   const [row, setRow] = useState(3)
   const [isOpen, setOpen] = useState(false)
   
